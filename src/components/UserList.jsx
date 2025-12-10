@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axios';
 import { Search, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Mail, Heart, Apple, Activity } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 8;

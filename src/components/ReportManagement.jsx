@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axios';
 import { AlertTriangle, CheckCircle, Clock, ChevronLeft, ChevronRight, User, Calendar, FileText, ArrowUpDown, Filter } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 5;
