@@ -176,7 +176,6 @@ export function GoalStats() {
         </ResponsiveContainer>
       </div>
 
-      {/* 목표별 상세 통계 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-6 shadow-lg border border-red-200/50 hover:shadow-xl hover:scale-105 transition-all duration-300">
           <div className="flex items-center justify-between mb-4">

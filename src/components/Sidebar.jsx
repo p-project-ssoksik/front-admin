@@ -58,7 +58,6 @@ export function Sidebar({ currentSection, onSectionChange, isOpen, onClose }) {
 
   return (
     <>
-      {/* Overlay for mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-30 z-40 lg:hidden backdrop-blur-sm"
@@ -66,7 +65,6 @@ export function Sidebar({ currentSection, onSectionChange, isOpen, onClose }) {
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`
           fixed lg:static inset-y-0 left-0 z-50
@@ -95,7 +93,6 @@ export function Sidebar({ currentSection, onSectionChange, isOpen, onClose }) {
 
               return (
                 <li key={item.id}>
-                  {/* 메인 메뉴 */}
                   <button
                     onClick={() => handleMainMenuClick(item.id)}
                     className={`
@@ -119,7 +116,6 @@ export function Sidebar({ currentSection, onSectionChange, isOpen, onClose }) {
                     )}
                   </button>
 
-                  {/* 서브 메뉴 */}
                   {isExpanded && item.subItems && (
                     <ul className="mt-1 ml-4 space-y-1">
                       {item.subItems.map((subItem) => {

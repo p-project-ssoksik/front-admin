@@ -45,7 +45,6 @@ export function PopularFoodStats() {
           axios.get('/management/foods/favorite')
         ]);
         
-        // 기록 내역 처리
         if (historyRes.data.success && Array.isArray(historyRes.data.data)) {
           historyRes.data.data.forEach(item => {
             const typeName = item.diabetes_type ? item.diabetes_type.trim() : '';
@@ -75,25 +74,20 @@ export function PopularFoodStats() {
           });
         }
 
-        // 즐겨찾기 내역 처리
         if (favoriteRes.data.success && Array.isArray(favoriteRes.data.data)) {
           favoriteRes.data.data.forEach(item => {
-             // 키 이름 호환성 체크 (diabetesType 또는 diabetes_type)
              const rawType = item.diabetesType || item.diabetes_type;
              if (!rawType) return;
 
-             // 공백 제거 후 매핑
              const cleanType = rawType.trim();
              const typeKey = TYPE_MAPPING[cleanType];
              
              if (typeKey && processedData[typeKey]) {
-                // 요약 카드용 (즐겨찾기 1위)
                 const top1Data = item.favoriteTop1 || item.favorite_top_1;
                 if (Array.isArray(top1Data) && top1Data.length > 0) {
                     processedData[typeKey].summary.favFood = top1Data[0]; 
                 }
 
-                // 리스트/차트용 (Top 1~5)
                 const favoriteList = [];
                 for (let i = 1; i <= 5; i++) {
                   const favRecord = item[`favoriteTop${i}`] || item[`favorite_top_${i}`]; 
@@ -109,7 +103,6 @@ export function PopularFoodStats() {
         setStatsData(processedData);
 
       } catch (error) {
-        // 에러 발생 시에만 최소한의 로그 남김 (사용자 선택에 따라 삭제 가능)
         console.error("데이터 로딩 실패:", error);
       } finally {
         setLoading(false);
@@ -161,7 +154,6 @@ export function PopularFoodStats() {
         </div>
       </div>
 
-      {/* 요약 카드 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl hover:scale-105 transition-all duration-300">
           <div className="h-12 flex items-start gap-3 mb-2">
@@ -201,7 +193,6 @@ export function PopularFoodStats() {
         </div>
       </div>
 
-      {/* 기록된 음식 차트 */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
         <h3 className="text-gray-900 mb-4 font-bold text-lg">가장 많이 기록된 음식 TOP 10</h3>
         <ResponsiveContainer width="100%" height={400}>
@@ -234,7 +225,6 @@ export function PopularFoodStats() {
         </ResponsiveContainer>
       </div>
 
-      {/* 즐겨찾기 TOP 5 리스트/그래프 */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
         <h3 className="text-gray-900 mb-4 flex items-center gap-2 font-bold text-lg">
           <Star className="w-5 h-5 text-yellow-500" />

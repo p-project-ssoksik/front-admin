@@ -10,16 +10,13 @@ export function LoginPage({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 유효성 검사 로직 추가
     if (email !== 'admin@gachon.ac.kr' || password !== '1234') {
       alert('이메일 또는 비밀번호가 올바르지 않습니다.');
-      return; // 정보가 틀리면 여기서 함수 종료 (로딩/로그인 진행 안 함)
+      return;
     }
 
-    // 정보가 일치할 경우에만 아래 로직 실행
     setIsLoading(true);
     
-    // 로딩 애니메이션을 위한 딜레이
     setTimeout(() => {
       onLogin(email, password);
       setIsLoading(false);
@@ -55,14 +52,11 @@ export function LoginPage({ onLogin }) {
 
   return (
     <div className="min-h-screen flex bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30">
-      {/* Left Section - Branding */}
       <div className="hidden lg:flex lg:w-1/2 xl:w-3/5 relative overflow-hidden">
-        {/* Background decorative elements */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600"></div>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
         
         <div className="relative z-10 flex flex-col justify-between p-12 xl:p-16 text-white w-full">
-          {/* Logo & Title */}
           <div>
             <div className="flex items-center gap-3 mb-8">
               <div className="w-14 h-14 flex items-center justify-center">
@@ -74,7 +68,6 @@ export function LoginPage({ onLogin }) {
               </div>
             </div>
 
-            {/* Main Message */}
             <div className="mb-12">
               <h2 className="text-white mb-4">
                 스마트한 건강 관리의 시작점
@@ -86,7 +79,6 @@ export function LoginPage({ onLogin }) {
               </p>
             </div>
 
-            {/* Features */}
             <div className="space-y-4 mb-12">
               {features.map((feature, index) => {
                 const Icon = feature.icon;
@@ -108,7 +100,6 @@ export function LoginPage({ onLogin }) {
             </div>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-3 gap-6">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
@@ -120,10 +111,8 @@ export function LoginPage({ onLogin }) {
         </div>
       </div>
 
-      {/* Right Section - Login Form */}
       <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
         <div className="w-full max-w-md">
-          {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
             <div className="w-14 h-14 flex items-center justify-center rounded-xl p-2">
               <img src={logoImage} alt="쏙식 로고" className="w-full h-full object-contain" />
@@ -133,7 +122,6 @@ export function LoginPage({ onLogin }) {
             </h1>
           </div>
 
-          {/* Login Card */}
           <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 p-8 lg:p-10">
             <div className="mb-8">
               <h2 className="text-gray-900 mb-2">관리자 로그인</h2>
@@ -143,7 +131,6 @@ export function LoginPage({ onLogin }) {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Email Input */}
               <div>
                 <label htmlFor="email" className="block text-gray-700 mb-2">
                   이메일
@@ -162,7 +149,6 @@ export function LoginPage({ onLogin }) {
                 </div>
               </div>
 
-              {/* Password Input */}
               <div>
                 <label htmlFor="password" className="block text-gray-700 mb-2">
                   비밀번호
@@ -181,7 +167,6 @@ export function LoginPage({ onLogin }) {
                 </div>
               </div>
 
-              {/* Remember Me */}
               <div className="flex items-center">
                 <label className="flex items-center gap-2 cursor-pointer group">
                   <input
@@ -194,7 +179,6 @@ export function LoginPage({ onLogin }) {
                 </label>
               </div>
 
-              {/* Login Button */}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -214,7 +198,6 @@ export function LoginPage({ onLogin }) {
               </button>
             </form>
 
-            {/* Security Notice */}
             <div className="mt-8 flex items-start gap-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
               <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
@@ -228,7 +211,6 @@ export function LoginPage({ onLogin }) {
             </div>
           </div>
 
-          {/* Footer */}
           <div className="mt-8 text-center text-gray-600">
             <p>© 2025 쏙식 Admin. All rights reserved.</p>
           </div>

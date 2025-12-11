@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
-// 차트 색상 팔레트
 const ALLERGY_COLORS = {
   '우유': '#3b82f6',
   '땅콩': '#10b981',
@@ -30,7 +29,6 @@ export function AllergyStats() {
     avgAllergyPerUser: 0
   });
 
-  // 화면 크기 감지 (모바일 여부 확인용)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -124,7 +122,6 @@ export function AllergyStats() {
         <p className="text-gray-600">사용자들의 알레르기 정보를 분석한 통계입니다</p>
       </div>
 
-      {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl hover:scale-105 transition-all duration-300">
           <p className="text-gray-600 mb-2">알레르기 등록자</p>
@@ -143,13 +140,10 @@ export function AllergyStats() {
         </div>
       </div>
 
-      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Pie Chart */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300 flex flex-col">
           <h3 className="text-gray-900 mb-4 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">알레르기 유형별 분포</h3>
           
-          {/* 차트 영역 */}
           <div className="flex-1 min-h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -158,8 +152,8 @@ export function AllergyStats() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={false} // 여기를 false로 바꿔서 외부 라벨 제거
-                  outerRadius={isMobile ? 80 : 100} // 모바일에서 원 크기 적절히 조정
+                  label={false}
+                  outerRadius={isMobile ? 80 : 100}
                   fill="#8884d8"
                   dataKey="value"
                   nameKey="name"
@@ -176,7 +170,6 @@ export function AllergyStats() {
             </ResponsiveContainer>
           </div>
 
-          {/* 하단 텍스트 범례 */}
           <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-y-2 gap-x-4">
             {allergyData.map((item, index) => (
               <div key={index} className="flex items-center gap-2 text-sm">
@@ -190,7 +183,6 @@ export function AllergyStats() {
           </div>
         </div>
 
-        {/* Bar Chart - Age Groups */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
           <h3 className="text-gray-900 mb-4 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">연령대별 알레르기 등록자</h3>
           <ResponsiveContainer width="100%" height={400}>
@@ -205,18 +197,15 @@ export function AllergyStats() {
         </div>
       </div>
 
-      {/* Allergy List Table */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 overflow-hidden hover:shadow-xl transition-all duration-300">
         <div className="p-6 border-b border-gray-200/50">
           <h3 className="text-gray-900 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">알레르기 상세 목록</h3>
         </div>
         
-        {/* overflow-x-auto 제거: 스크롤 기능 삭제 */}
         <div className="w-full">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                {/* whitespace-nowrap 제거: 글자가 길면 줄바꿈 허용 */}
                 <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">알레르기 유형</th>
                 <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">사용자 수</th>
                 <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">비율</th>

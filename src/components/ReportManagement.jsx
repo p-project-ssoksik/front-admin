@@ -21,7 +21,6 @@ export function ReportManagement() {
   const [reportStats, setReportStats] = useState({ total: 0, waiting: 0, approval: 0 }); 
   const [loading, setLoading] = useState(false);
 
-  // 통계 API 호출
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -36,7 +35,6 @@ export function ReportManagement() {
     fetchStats();
   }, []);
 
-  // 리스트 API 호출
   useEffect(() => {
     const fetchReports = async () => {
       try {
@@ -65,30 +63,23 @@ export function ReportManagement() {
     fetchReports();
   }, [statusFilter, typeFilter, sortOrder]);
 
-  // 처리 완료 핸들러 (PATCH 요청)
   const handleComplete = async (reportId) => {
-    // 사용자 확인 (선택 사항)
     if (!window.confirm('이 신고를 처리 완료하시겠습니까?')) return;
 
     try {
-      // PATCH /management/reports?id={reportId}
-      // 두 번째 인자(Body)는 null, 세 번째 인자(Config)에 params를 넣음
       const response = await axios.patch('/management/reports', null, {
         params: { id: reportId }
       });
 
       if (response.data.success) {
-        // 성공 메시지 알림
         alert(response.data.message);
 
-        // 리스트 상태 업데이트 (해당 항목을 '처리완료'로 변경)
         setReports((prevReports) => 
           prevReports.map((report) => 
             report.id === reportId ? { ...report, status: '처리완료' } : report
           )
         );
 
-        // 상단 통계 숫자 업데이트 (대기중 -1, 처리완료 +1)
         setReportStats((prev) => ({
           ...prev,
           waiting: Math.max(0, prev.waiting - 1),
@@ -96,7 +87,6 @@ export function ReportManagement() {
         }));
 
       } else {
-        // 실패 메시지 (이미 처리되었거나 ID 없음)
         alert(response.data.message);
       }
     } catch (error) {
@@ -143,7 +133,6 @@ export function ReportManagement() {
         <p className="text-sm lg:text-base text-gray-600">사용자들의 신고 내용을 관리합니다</p>
       </div>
 
-      {/* Summary Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-sm border border-gray-200/50 flex items-center justify-between sm:block">
           <div className="flex items-center gap-3 mb-0 sm:mb-2">
@@ -185,7 +174,6 @@ export function ReportManagement() {
         </div>
       </div>
 
-      {/* Filter & Sort Toolbar */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200/50">
         <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-2">
           
@@ -264,7 +252,6 @@ export function ReportManagement() {
         </div>
       </div>
 
-      {/* Reports List - Mobile */}
       <div className="lg:hidden space-y-4">
         {loading ? (
            <div className="text-center py-10 text-gray-500">로딩 중...</div>
@@ -297,7 +284,6 @@ export function ReportManagement() {
                   </div>
               </div>
 
-              {/* status가 '대기중'일 때만 완료 버튼 표시 */}
               {report.status === '대기중' && (
                   <button
                     onClick={() => handleComplete(report.id)}
@@ -316,7 +302,6 @@ export function ReportManagement() {
         )}
       </div>
 
-      {/* Reports List - Desktop */}
       <div className="hidden lg:block space-y-3">
         {loading ? (
            <div className="text-center py-20 text-gray-500">데이터를 불러오는 중입니다...</div>
@@ -366,7 +351,6 @@ export function ReportManagement() {
         )}
       </div>
 
-      {/* Pagination */}
       {totalPages > 0 && (
         <div className="flex items-center justify-between bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200/50">
           <div className="text-sm text-gray-500">

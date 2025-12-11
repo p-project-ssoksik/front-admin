@@ -3,7 +3,6 @@ import axios from '../api/axios';
 import { Activity, TrendingUp, TrendingDown, Clock } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
-// [임시값]
 const FALSE_TIME_DATA = {
   '1형': [
     { time: '00-03시', avg: 139, high: 0, low: 0}, { time: '03-06시', avg: 145, high: 0, low: 0 },
@@ -48,7 +47,6 @@ export function BloodSugarStats() {
            const processedData = {};
            
            response.data.data.forEach(item => {
-             // 백엔드가 보내준 불규칙한 키 이름들을 정확하게 매핑
              const weeklyData = [
                { day: '월', dayName: '월요일', avg: item.mon_bs_Mean },
                { day: '화', dayName: '화요일', avg: item.tue_bs_Mean },
@@ -59,7 +57,6 @@ export function BloodSugarStats() {
                { day: '일', dayName: '일요일', avg: item.sun_bs_Mean },
              ];
 
-             // 평균 계산을 위해 유효한 값만 필터링
              const validMeans = [
                item.mon_bs_Mean, item.tue_bs_Mean, item.wen_bs_Mean, 
                item.thu_bsMean, item.fri_bsMean, item.sat_bsMean, 
@@ -74,7 +71,6 @@ export function BloodSugarStats() {
              const highRate = ((item.high_bs / totalCount) * 100).toFixed(1) + '%';
              const lowRate = ((item.low_bs / totalCount) * 100).toFixed(1) + '%';
              
-             // [임시값] 시간 데이터 연결
              const fakeTimeData = FALSE_TIME_DATA[item.diabetes_type] || FALSE_TIME_DATA['1형'];
  
              processedData[item.diabetes_type] = {
@@ -137,7 +133,6 @@ export function BloodSugarStats() {
         <p className="text-gray-600">당뇨 유형별 혈당 데이터를 분석합니다</p>
       </div>
 
-      {/* 탭 버튼 */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-lg border border-gray-200/50">
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
           {diabetesTypes.map((type) => (
@@ -152,7 +147,6 @@ export function BloodSugarStats() {
         </div>
       </div>
 
-      {/* 요약 카드 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl hover:scale-105 transition-all duration-300">
           <div className="flex items-center gap-3 mb-2">
@@ -192,10 +186,8 @@ export function BloodSugarStats() {
         </div>
       </div>
 
-      {/* 차트 영역 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        {/* 요일별 평균 혈당 (API 연동됨) */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
           <h3 className="text-gray-900 mb-4 font-bold text-lg">요일별 평균 혈당 ({selectedType})</h3>
           <ResponsiveContainer width="100%" height={300}>
@@ -216,7 +208,6 @@ export function BloodSugarStats() {
           </ResponsiveContainer>
         </div>
 
-        {/* 시간대별 혈당 분포 (임시값 사용) */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
           <div className="flex justify-between items-center mb-4">
              <h3 className="text-gray-900 font-bold text-lg">시간대별 혈당 분포 ({selectedType})</h3>
